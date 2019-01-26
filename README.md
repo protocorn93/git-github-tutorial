@@ -70,4 +70,21 @@ git push -u origin master
 
 **Flow**
 
+일반적으로 오픈소스에 기여를 하거나 협업을 진행할 때 볼 수 있는 전체적인 흐름을 나타낸 다이어그램이이다. (방법은 여러가지가 있다.)
+
 ![](./images/collaboration.png)
+
+
+
+1. 먼저 기여할 혹은 협업할 저장소(이하 `Collabo Remote`)를 자신의 깃헙 계정 저장소로 **folk**를 한다.
+2. 자신의 깃헙 계정에 folk된 저장소(이하 `User Remote`)를 자신의 PC로 **clone**을 진행한다. 
+3. PC로 클론한 프로젝트(이하 `User Local`)에서 추가하고 싶은 혹은 자신이 담당할 기능에 대한 브랜치를 생성 (`feature`)하고 그곳에서 코드 작성을 진행한다. 
+4. 새로운 기능을 담고 있는 `feature` 브랜치를 `User Remote` 저장소로 **push**한다. 
+5. `User Remote`에 올라간 `feature` 브랜치를 `Collabo Remote`의 `master`(혹은 다른 브랜치) 병합을 요청한다. (**Pull Request, PR**)
+   1. 코드 리뷰가 진행된다. 
+   2. 코드의 수정이 필요하다면 계속해서 `feature` 브랜치에 수정 사항을 반영한다.
+6. 병합(**Merge**)가 되면 이제 `Collabo Remote`의 `master` 브랜치는 새로운 기능이 추가된 최신 상태가 되었다. 
+7. 이제 이러한 `master` 브랜치의 최신 상태(*`feature` 브랜치의 내용이 반영된*)를 `User Local`, `User Remote`에도 반영해주어야 한다. 먼저 `User Local`로 최신 변경 사항을 가져와 이전 상태와 병합을 진행한다. 
+8. 그리고 최신의 상태를 유지하고 있는 `User Local`의 `master` 브랜치를 `User Remote`로 **push**하여 `User Remote` 역시 최신 상태로 갱신한다. 
+
+> 이와 같은 내용을 담고 있는 코드스쿼드의 [Git 강좌](https://youtu.be/CbLNbCUsh5c)
