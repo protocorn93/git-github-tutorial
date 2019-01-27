@@ -146,9 +146,79 @@ Date: date
   - `git add` 까지 진행한 상태
   - 바로 커밋을 할 수 있는 상태
 - `--mixed`
-  - 모든 작업 디렉토리는 유지하면서 인덱스를 `HEAD`와 함께 돌아가고자 하는 커밋으로 돌아감
+  - 모든 **작업 디렉토리는 유지**하면서 **인덱스를 `HEAD`와 함께 돌아가고자 하는 커밋으로 돌아감**
   - 변경 사항을 적용하려면 먼저 `git add`를 해서 인덱스에 올려야 함.
-  - 디폴트 옵션
+  - **디폴트 옵션**
 
-이렇게 보면 와닿지 않을 수 있다. 직접 명령어를 하나씩 타이핑하면서 이를 익혀보자.
+
+
+이렇게 보면 와닿지 않을 수 있다. 직접 명령어를 하나씩 타이핑하면서 이를 익혀보자. 현재 마크다운 파일의 상태는 다음과 같이 제목만 작성된 상태이다. 
+
+```markdown
+### TODO
+```
+
+여기에 첫 번째 해야할 일을 입력하고 이를 커밋해보자.
+
+```markdown
+### TODO
+
+1. 후쿠오카 교통 패스 구매하기
+```
+
+```bash
+git add todo.md
+git commit -m "Buy Pass"
+git log
+
+-------------------------
+commit 9ee7ba2504e3ebaaf5e622ae5701c5aa455b97e4 (HEAD -> master)
+Author: author <author@gmail.com>
+Date:   Sat Jan 26 19:45:11 2019 +0900
+	Buy Pass
+	
+commit 28794fbf3a48c316f1b409872fa4490a287998ca
+Author: author <author@gmail.com>
+Date:   Sat Jan 26 19:40:23 2019 +0900
+	Title TODO
+-------------------------
+```
+
+**먼저 `--hard` 옵션을 사용해보자.** 우리는 제목을 작성한 시점으로 돌아가려 한다. 해당 커밋의 아이디는 `28794fbf3a48c316f1b409872fa4490a287998ca`이다. 
+
+```bash
+git reset --hard 28794fbf3a48c316f1b409872fa4490a287998ca
+git log
+
+-------------------------
+commit 28794fbf3a48c316f1b409872fa4490a287998ca (HEAD -> master)
+Author: author <author@gmail.com>
+Date:   Sat Jan 26 19:40:23 2019 +0900
+	Title TODO
+-------------------------
+```
+
+로그를 확인해보면 `HEAD`가 원하는 커밋 시점으로 돌아간 것을 확인할 수 있다. 그러면 파일을 열어 확인해보자. 
+
+```markdown
+### TODO
+```
+
+변경 사항까지 모두 사라진 것을 확인할 수 있다. 그리고 `git status`를 통해 파일들의 상태를 보면 모든 것이 최신이고 변경 사항이 없다는 문구를 확인할 수 있다. 즉 돌아오고자 했던 커밋 이후의 모든 사항들은 삭제된 것이다. 
+
+` git reset --hard ORIG_HEAD` 명령어를 통해 `reset` 내역을 취소하고 원 상태로 돌아가보자. ("Buy Pass" 커밋으로)
+
+**이번엔 `--soft` 옵션을 사용해보자.** 동일하게 제목을 작성한 시점으로 돌아가보자.
+
+```bash
+git reset --soft 28794fbf3a48c316f1b409872fa4490a287998ca
+git log
+
+-------------------------
+commit 28794fbf3a48c316f1b409872fa4490a287998ca (HEAD -> master)
+Author: author <author@gmail.com>
+Date:   Sat Jan 26 19:40:23 2019 +0900
+	Title TODO
+-------------------------
+```
 
