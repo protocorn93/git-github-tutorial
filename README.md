@@ -242,5 +242,39 @@ Changes to be committed:
 
 하지만 파일을 열어보면 변경 사항을 인덱스로 올린 상태를 유지하고 있는 것을 확인할 수 있다. 변경을 했던 부분은 유지가 되어 인덱스에 올라가 있지만 아직 이를 확정짓지 않은 상태이다. 여기서 커밋을 통해 변경 사항을 확정 지을 수 있다.
 
+마찬가지로 ` git reset --hard ORIG_HEAD` 명령어를 통해 `reset` 내역을 취소하고 원 상태로 돌아가보자. 
 
+**마지막으로 `--mixed`, 디폴트 옵션을 사용해보자.**
+
+```bash
+git reset --mixed 28794fbf3a48c316f1b409872fa4490a287998ca
+git log
+
+-------------------------
+commit 28794fbf3a48c316f1b409872fa4490a287998ca (HEAD -> master)
+Author: author <author@gmail.com>
+Date:   Sat Jan 26 19:40:23 2019 +0900
+	Title TODO
+-------------------------
+
+git status
+
+-------------------------
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+	modified:   todo.md
+-------------------------
+```
+
+워킹 디렉토리에 작업을 한 내용은 그대로이지만 아직 인덱스로 올라가지 않은 상태이다. `git add`를 통해 스테이징을 해주고 커밋을 해야 변경 사항을 로컬 저장소에 반영할 수 있다. 
+
+이 세 가지 옵션을 간단히 표로 정리해보면 다음과 같다. 
+
+| mode      | HEAD | INDEX  | WORIKING DIRECTORY |
+| --------- | ---- | ------ | ------------------ |
+| `--soft`  | 변경 | 변경 X | 변경 X             |
+| `--mixed` | 변경 | 변경   | 변경 X             |
+| `--hard`  | 변경 | 변경   | 변경               |
 
