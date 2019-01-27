@@ -88,3 +88,67 @@ git push -u origin master
 8. 그리고 최신의 상태를 유지하고 있는 `User Local`의 `master` 브랜치를 `User Remote`로 **push**하여 `User Remote` 역시 최신 상태로 갱신한다. 
 
 > 이와 같은 내용을 담고 있는 코드스쿼드의 [Git 강좌](https://youtu.be/CbLNbCUsh5c)
+
+
+
+### Git Advanced
+
+---
+
+**커밋 되돌리기**
+
+![workflow1](./images/workflow1.png)
+
+우리는 워킹 디렉토리에서 작업을 진행한다. 그리고 변경이 된 부분을 **Staging Area(INDEX)**로 올린다 (`git add <file name>`). 이러한 작업을 **스테이징(Staging)**, 혹은 **인덱스에 등록**이라 표현한다. 그리고 **변경을 확정**짓고 **로컬 저장소에 이를 반영**하는 것이 **커밋(Commit)**(`git commit -m "<message>"`)이다. 
+
+파일의 변경부터 스테이징, 커밋까지 단계적으로 진행된다는 것을 기억하고 **커밋 되돌리기**에 대해 알아보자
+
+
+
+**`git commit --amend`**
+
+`--amend` 옵션을 통해 현재 브랜치 상에서 가장 **최신의 커밋 메시지를 수정**할 수 있다. 
+
+```bash
+git commit -m "first commit"
+git log
+
+-------------------------
+commit 7cfe3a84320be33250cbaece193d3289e9n0e3cb (HEAD -> master)
+Author : author
+Date: date 
+	first commit 
+-------------------------
+
+git commit --amend -m "Add sample.txt"
+git log
+
+-------------------------
+commit 591620e9bd73ab97f380293103cd719913645csd (HEAD -> master)
+Author : author
+Date: date 
+	Add sample.txt
+-------------------------
+```
+
+
+
+**`git reset <option> <commit ID>`**
+
+시간을 되돌리듯이 커밋을 당시로 돌려놓는다. 옵션의 대표적이 세 가지는 다음과 같다. 
+
+- `--hard`
+  - 돌아가려는 커밋 이후의 모든 작업 디렉토리와 인덱스 모두 유지하지 않고 이전 커밋으로 `HEAD`를 되돌림
+  - **작업하던 내용을 의도적으로 모두 삭제**하고자 할 때만 사용
+
+- `--soft`
+  - 현재 인덱스 상태와 작업 디렉토리 내용을 그대로 보전한 채 **커밋만 되돌릴 경우 사용**.
+  - `git add` 까지 진행한 상태
+  - 바로 커밋을 할 수 있는 상태
+- `--mixed`
+  - 모든 작업 디렉토리는 유지하면서 인덱스를 `HEAD`와 함께 돌아가고자 하는 커밋으로 돌아감
+  - 변경 사항을 적용하려면 먼저 `git add`를 해서 인덱스에 올려야 함.
+  - 디폴트 옵션
+
+이렇게 보면 와닿지 않을 수 있다. 직접 명령어를 하나씩 타이핑하면서 이를 익혀보자.
+
