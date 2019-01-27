@@ -103,9 +103,8 @@ git push -u origin master
 
 파일의 변경부터 스테이징, 커밋까지 단계적으로 진행된다는 것을 기억하고 **커밋 되돌리기**에 대해 알아보자
 
-
-
-**`git commit --amend`**
+<br>
+**git commit --amend`**
 
 `--amend` 옵션을 통해 현재 브랜치 상에서 가장 **최신의 커밋 메시지를 수정**할 수 있다. 
 
@@ -131,7 +130,7 @@ Date: date
 -------------------------
 ```
 
-
+<br>
 
 **`git reset <option> <commit ID>`**
 
@@ -150,7 +149,7 @@ Date: date
   - 변경 사항을 적용하려면 먼저 `git add`를 해서 인덱스에 올려야 함.
   - **디폴트 옵션**
 
-
+<br>
 
 이렇게 보면 와닿지 않을 수 있다. 직접 명령어를 하나씩 타이핑하면서 이를 익혀보자. 현재 마크다운 파일의 상태는 다음과 같이 제목만 작성된 상태이다. 
 
@@ -277,4 +276,29 @@ Changes not staged for commit:
 | `--soft`  | 변경 | 변경 X | 변경 X             |
 | `--mixed` | 변경 | 변경   | 변경 X             |
 | `--hard`  | 변경 | 변경   | 변경               |
+
+<br>
+
+**기타 옵션들**
+
+- `git reset HEAD~N`
+  - `HEAD`에서 N개 이전의 커밋으로 돌아감
+- `git reset HEAD^`
+  - 최신 커밋을 취소 
+  - 커밋은 했지만 push를 하지 않은 경우에 유용
+- `git reset --hard ORIG_HEAD`
+  - `reset` 전의 커밋을 `ORIG_HEAD`라는 이름으로 참조할 수 있음.
+  - 실수로 `reset`을 한 경우에는 이 명령어를 통해 실행 전으로 돌아갈 수 있음
+
+<br>
+
+**`git revert <commit ID>`**
+
+이전 이력은 그대로 두고, 되돌릴 커밋의 코드만 복사하여 커밋 하나를 만든다.
+
+`reset`이 이전 커밋으로 돌아갔다면 `revert`는 돌이키고자 하는 커밋을 복구시키고 새로운 커밋으로 덮어씌운다. `revert`는 커밋을 이미 원격 저장소로 push한 경우에 많이 사용된다. 
+
+<br>
+
+![](https://wac-cdn.atlassian.com/dam/jcr:a6a50d78-48e3-4765-8492-9e48dec8fd2f/04%20(2).svg?cdnVersion=kw)
 
