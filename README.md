@@ -220,5 +220,27 @@ Author: author <author@gmail.com>
 Date:   Sat Jan 26 19:40:23 2019 +0900
 	Title TODO
 -------------------------
+
+git status
+
+-------------------------
+On branch master
+Changes to be committed:
+  (use "git reset HEAD <file>..." to unstage)
+
+	modified:   todo.md
+-------------------------
 ```
+
+커밋 로그를 보면 `HEAD`가 제목 생성 시점으로 옮겨진 것을 확인할 수 있다.
+
+```markdown
+### TODO
+
+1. 후쿠오카 교통 패스 구매하기
+```
+
+하지만 파일을 열어보면 변경 사항을 인덱스로 올린 상태를 유지하고 있는 것을 확인할 수 있다. 변경을 했던 부분은 유지가 되어 인덱스에 올라가 있지만 아직 이를 확정짓지 않은 상태이다. 여기서 커밋을 통해 변경 사항을 확정 지을 수 있다.
+
+
 
