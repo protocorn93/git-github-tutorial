@@ -384,3 +384,32 @@ Changes not staged for commit:
 - 특정 브랜치에서 잘못 추가한 커밋을 올바른 브랜치로 옮기고 싶을 때
 - 다른 브랜치의 커밋을 현재 브랜치에도 추가하고 싶을 때 
 
+<br>
+
+역시 직접 명령어를 직접 입력해보자. 현재 서비스 중인 프로젝트가 `master`, 다음 버전이 `next-release` 브랜치라 가정하자. 현재 서비스 중인 프로젝트에서 오타가 발생하였다면 이는 다음 버전에도 반영이 되어야 한다. 
+
+```bash
+git checkout master
+git add .
+git commit -m "fixed: typo"
+
+git log --pretty=oneline
+
+-------------------------
+b14b975 fixed: typo
+9f57292 ....
+-------------------------
+
+git checkout new-release
+git cherry-pick b14b975
+
+git log --pretty=oneline
+
+-------------------------
+23fa1e76 fixed: typo
+dd0f27c ...
+...
+-------------------------
+```
+
+디폴트 옵션은 반영하려는 변경 사항을 커밋까지 진행한다. 만일 바로 반영하지 않고 인덱스에만 올라간 상태로 반영하고 싶다면 `git cherry-pick -n b14b975`과 같이 `-n` 옵션을 사용하면 된다.
