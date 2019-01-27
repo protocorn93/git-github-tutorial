@@ -302,3 +302,75 @@ Changes not staged for commit:
 
 ![](https://wac-cdn.atlassian.com/dam/jcr:a6a50d78-48e3-4765-8492-9e48dec8fd2f/04%20(2).svg?cdnVersion=kw)
 
+현재 `todo.md`의 내용은 다음과 같다. 
+
+```markdown
+### TODO
+
+1. 후쿠오카 교통 패스 구매하기
+```
+
+그리고 커밋 로그는 다음과 같다. 
+
+```bash
+-------------------------
+commit 9ee7ba2504e3ebaaf5e622ae5701c5aa455b97e4 (HEAD -> master)
+Author: author <author@gmail.com>
+Date:   Sat Jan 26 19:45:11 2019 +0900
+	Buy Pass
+	
+commit 28794fbf3a48c316f1b409872fa4490a287998ca
+Author: author <author@gmail.com>
+Date:   Sat Jan 26 19:40:23 2019 +0900
+	Title TODO
+-------------------------
+```
+
+그럼 이제 `revert`를 사용해보자. 
+
+```bash
+git revert HEAD
+git log
+
+-------------------------
+commit 9ee7ba2504e3ebaaf5e622ae5701c5aa455b97e4 (HEAD -> master)
+Author: author <author@gmail.com>
+Date:   Sat Jan 26 19:45:11 2019 +0900
+	Revert "Buy Pass"
+
+commit 9ee7ba2504e3ebaaf5e622ae5701c5aa455b97e4
+Author: author <author@gmail.com>
+Date:   Sat Jan 26 19:45:11 2019 +0900
+	Buy Pass
+	
+commit 28794fbf3a48c316f1b409872fa4490a287998ca
+Author: author <author@gmail.com>
+Date:   Sat Jan 26 19:40:23 2019 +0900
+	Title TODO
+-------------------------
+
+git status
+
+-------------------------
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+	modified:   todo.md
+```
+
+패스를 구매하는 일정을 추가한 최신 커밋을 취소하였다. 그리고 커밋 로그에는 `revert`가 되었다는 커밋 로그를 확인할 수 있다. 그리고 되돌아간 것이 아닌 `revert`되었다는 변화가 생겼고 이 변화를 아직 스테이지에 올리지 않은 상태인 것이다. 
+
+이때 `todo.md`의 내용은 다음과 같다.  
+
+```markdown
+### TODO
+```
+
+<br>
+
+`revert`는 `reset`에 비교하여 두 가지 이점을 갖는다. 
+
+첫 번째는 작업 중인 프로젝트 히스토리에 영향을 주지 않는다는 것이다. 이미 원격 저장소로 올라간 커밋에 사용할 수 있는 안전한 방법이다. 
+
+두 번째로 `reset`은 원하는 커밋까지 되돌아가고 그 이후의 커밋들은 모두 제거되는 반면 `revert`는 특정 커밋만을 이후의 커밋들에 영향 없이 변경할 수 있다는 것이다. 
